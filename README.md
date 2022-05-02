@@ -8,7 +8,7 @@ stuff to tweak is at the top of the helper file
 
 - The pink represents the head. It visits unvisited cells until it reaches a dead end.
 
-- The shades of red represent a backtrack. This happens when a dead end is reached. The head will backtrack until it reaches a cell with unvisited neighbors. 
+- The shades of red represent a backtrack. This happens when a dead end is reached. The head will backtrack until it reaches a cell with unvisited neighbors. Once all cells are visited, the head will backtrack to the beginning cell, indicating completion.
 
 - The end of the gif shows a completed maze with the exits marked with light blue. 
 
