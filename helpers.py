@@ -6,13 +6,15 @@ from helpers import *
 import sys
 import os
 
-w, h = 10, 10
+w, h = 300, 300
+dir_path = "/home/mot/Documents/GitHub/pyMaze/gifs/"
+gif = False
+
 fade_traceback = 99
 fade_head = -9
 fade_exit = -11000
-frames=[]
+frames=[]   #only used if gif is True
 scale = 4
-dir_path = "/home/mot/Documents/GitHub/pyMaze/gifs/"
 name_prefix = "maze"
 
 #returns next available file name
@@ -110,10 +112,11 @@ def backTrack(visitStack, i, j, arr):
         if len(visitStack) <= 0:
             return -1, -1
         arr[i][j].val = fade_traceback
-        bytes_arr = bytearray()
-        convertToBytes(bytes_arr, arr)
-        #upScale(bytes_arr, scale)
-        frames.append(Image.frombytes("RGB", ((w*3), (h*3)), bytes(bytes_arr)))
+        if gif:
+            bytes_arr = bytearray()
+            convertToBytes(bytes_arr, arr)
+            #upScale(bytes_arr, scale)
+            frames.append(Image.frombytes("RGB", ((w*3), (h*3)), bytes(bytes_arr)))
         i, j = visitStack.pop()
     arr[i][j].val = fade_head
     return i, j
@@ -130,7 +133,7 @@ def wallsUP(cell):
         return False 
 
 def getBaseColor(cell):
-    if cell.val == 0:
+    if not gif or cell.val == 0:
         base = [255, 255, 255]
     if cell.val > 0:
         colRange = int(cell.val/3) * 3

@@ -25,10 +25,11 @@ def main():
         while(not isDeadEnd(i, j, cell_arr)):
             i,j = visitNeighbor(visitStack, dirStack, i, j, cell_arr)
             
-            bytes_arr = bytearray()
-            convertToBytes(bytes_arr, cell_arr)
-            #arr = upScale(bytes_arr, scale)
-            frames.append(Image.frombytes("RGB", ((w*3), (h*3)), bytes(bytes_arr)))
+            if gif:
+                bytes_arr = bytearray()
+                convertToBytes(bytes_arr, cell_arr)
+                #arr = upScale(bytes_arr, scale)
+                frames.append(Image.frombytes("RGB", ((w*3), (h*3)), bytes(bytes_arr)))
             
             tempCount += 1
             if tempCount > margin:
@@ -42,19 +43,21 @@ def main():
     
     bar.close()
 
-    #process the cell_arr to a byte format for the resulting image
-    bytes_arr = bytearray()
-    convertToBytes(bytes_arr, cell_arr)
-    #upScale(bytes_arr, scale)
-    frames.append(Image.frombytes("RGB", ((w*3), (h*3)), bytes(bytes_arr)))
+    if gif:
+        #process the cell_arr to a byte format for the resulting image
+        bytes_arr = bytearray()
+        convertToBytes(bytes_arr, cell_arr)
+        #upScale(bytes_arr, scale)
+        frames.append(Image.frombytes("RGB", ((w*3), (h*3)), bytes(bytes_arr)))
     for row in cell_arr:
         for cell in row:
             cell.val = 0
 
-    bytes_arr = bytearray()
-    convertToBytes(bytes_arr, cell_arr)
-    #upScale(bytes_arr, scale)
-    frames.append(Image.frombytes("RGB", ((w*3), (h*3)), bytes(bytes_arr)))
+    if gif:
+        bytes_arr = bytearray()
+        convertToBytes(bytes_arr, cell_arr)
+        #upScale(bytes_arr, scale)
+        frames.append(Image.frombytes("RGB", ((w*3), (h*3)), bytes(bytes_arr)))
 
     #generate exits
     createExit(cell_arr, "up")
@@ -66,14 +69,15 @@ def main():
     convertToBytes(bytes_arr, cell_arr)
     #upScale(bytes_arr, scale)
     img = Image.frombytes("RGB", ((w*3), (h*3)), bytes(bytes_arr))    
-    for a in range(300):
-        frames.append(img)
 
-    frame_one = frames[0]
-    gifname = getFileName(f'{w}x{h}_Maze')
-    frame_one.save(dir_path + gifname, format="GIF", append_images=frames,
-                save_all=True, duration=40, loop=1)
-
+    if gif:
+        for a in range(300):
+            frames.append(img)
+        frame_one = frames[0]
+        gifname = getFileName(f'{w}x{h}_Maze')
+        frame_one.save(dir_path + gifname, format="GIF", append_images=frames,
+                    save_all=True, duration=40, loop=1)
+    img.show()
     print("done")
 
 
