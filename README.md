@@ -19,3 +19,8 @@ stuff to tweak is at the top of the helper file
 
 ------------
 
+The maze size is greatly limited if creating a gif. I can do 80x80 on my PC. 
+
+If gif creation is off, the maze can be much larger. I got up to 8000x8000 on my PC. 
+
+The bottleneck in both cases is primarily the amount RAM. However, gif creation for "smaller" mazes (<100) is mainly CPU bound.
