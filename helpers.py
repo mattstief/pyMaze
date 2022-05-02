@@ -6,7 +6,7 @@ from helpers import *
 import sys
 import os
 
-w, h = 200, 200
+w, h = 30, 30
 dir_path = "/home/mot/Documents/GitHub/pyMaze/gifs/"
 gif = True
 
@@ -161,6 +161,7 @@ def convertToBytes(bytes_arr, cell_arr, bar=None):
             col = base
             if cell.up or cell.left:
                 col = black
+            col = black
             for val in col:
                 bytes_arr.append(val)
 
@@ -173,6 +174,7 @@ def convertToBytes(bytes_arr, cell_arr, bar=None):
             col = base
             if cell.up or cell.right:
                 col = black
+            col = black
             for val in col:
                 bytes_arr.append(val)
 
@@ -205,6 +207,7 @@ def convertToBytes(bytes_arr, cell_arr, bar=None):
             col = base
             if cell.down or cell.left:
                 col = black
+            col = black
             for val in col:
                 bytes_arr.append(val)
 
@@ -217,6 +220,7 @@ def convertToBytes(bytes_arr, cell_arr, bar=None):
             col = base
             if cell.down or cell.right:
                 col = black
+            col = black
             for val in col:
                 bytes_arr.append(val)
 
