@@ -156,24 +156,17 @@ def convertToBytes(bytes_arr, cell_arr, bar=None):
         if bar:
             bar.update()
         for cell in row:
-            base = getBaseColor(cell)
             #top wall
-            col = base
-            if cell.up or cell.left:
-                col = black
             col = black
             for val in col:
                 bytes_arr.append(val)
 
-            col = base
+            col = getBaseColor(cell)
             if cell.up:
                 col = black
             for val in col:
                 bytes_arr.append(val)
 
-            col = base
-            if cell.up or cell.right:
-                col = black
             col = black
             for val in col:
                 bytes_arr.append(val)
@@ -202,24 +195,17 @@ def convertToBytes(bytes_arr, cell_arr, bar=None):
                 bytes_arr.append(val)
 
         for cell in row:
-            base = getBaseColor(cell)
             #bottom wall 
-            col = base
-            if cell.down or cell.left:
-                col = black
             col = black
             for val in col:
                 bytes_arr.append(val)
 
-            col = base
+            col = getBaseColor(cell)
             if cell.down:
                 col = black
             for val in col:
                 bytes_arr.append(val)
 
-            col = base
-            if cell.down or cell.right:
-                col = black
             col = black
             for val in col:
                 bytes_arr.append(val)
