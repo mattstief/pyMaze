@@ -6,9 +6,9 @@ from helpers import *
 import sys
 import os
 
-w, h = 300, 300
+w, h = 200, 200
 dir_path = "/home/mot/Documents/GitHub/pyMaze/gifs/"
-gif = False
+gif = True
 
 fade_traceback = 99
 fade_head = -9
@@ -247,6 +247,8 @@ def upScale(bytes_arr, scale):
 def printMem():
     #print(f'size of cell: {sys.getsizeof(Cell())} B')
     byteCount = sys.getsizeof(Cell()) * (w*h) + (w*h * 9 * 3)
+    if gif:
+        byteCount = sys.getsizeof(Cell()) * (w*h) + (w*h * 9 * 3)*(w*h)
     mb = byteCount / 1000000
     if mb > 999:
         print(f'requires at least {mb/1000} GB')

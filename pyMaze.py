@@ -42,13 +42,14 @@ def main():
             break
     
     bar.close()
-
+    print("mapping complete. creating image....")
     if gif:
         #process the cell_arr to a byte format for the resulting image
         bytes_arr = bytearray()
         convertToBytes(bytes_arr, cell_arr)
         #upScale(bytes_arr, scale)
         frames.append(Image.frombytes("RGB", ((w*3), (h*3)), bytes(bytes_arr)))
+
     for row in cell_arr:
         for cell in row:
             cell.val = 0
