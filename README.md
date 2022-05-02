@@ -24,3 +24,4 @@ The maze size is greatly limited if creating a gif. I can do 80x80 on my PC.
 If gif creation is off, the maze can be much larger. I got up to 8000x8000 on my PC. 
 
 The bottleneck in both cases is primarily the amount RAM. However, gif creation for "smaller" mazes (<100) is mainly CPU bound.
+![1000x1000_Maze](https://user-images.githubusercontent.com/79825665/166328427-1381bc35-3e32-4a0d-89b2-457e517e6c11.PNG)
