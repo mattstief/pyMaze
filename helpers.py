@@ -7,7 +7,7 @@ import sys
 import os
 
 w, h = 30, 30
-dir_path = "/home/mot/Documents/GitHub/pyMaze/gifs/"
+dir_path = "gifs/"
 gif = True
 
 fade_traceback = 99
@@ -113,10 +113,7 @@ def backTrack(visitStack, i, j, arr):
             return -1, -1
         arr[i][j].val = fade_traceback
         if gif:
-            bytes_arr = bytearray()
-            convertToBytes(bytes_arr, arr)
-            #upScale(bytes_arr, scale)
-            frames.append(Image.frombytes("RGB", ((w*3), (h*3)), bytes(bytes_arr)))
+            appendToGif(arr)
         i, j = visitStack.pop()
     arr[i][j].val = fade_head
     return i, j
@@ -233,6 +230,13 @@ def upScale(bytes_arr, scale):
     #     i += 1
         
     #return bytes_arr
+
+def appendToGif(cell_arr):
+    bytes_arr = bytearray()
+    convertToBytes(bytes_arr, cell_arr)
+    #upScale(bytes_arr, scale)
+    frames.append(Image.frombytes("RGB", ((w*3), (h*3)), bytes(bytes_arr)))
+
 
 def printMem():
     #print(f'size of cell: {sys.getsizeof(Cell())} B')

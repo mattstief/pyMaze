@@ -1,5 +1,5 @@
 from typing import List
-from PIL import Image
+import PIL
 import random
 from array import *
 from helpers import *
@@ -26,10 +26,7 @@ def main():
             i,j = visitNeighbor(visitStack, dirStack, i, j, cell_arr)
             
             if gif:
-                bytes_arr = bytearray()
-                convertToBytes(bytes_arr, cell_arr)
-                #arr = upScale(bytes_arr, scale)
-                frames.append(Image.frombytes("RGB", ((w*3), (h*3)), bytes(bytes_arr)))
+                appendToGif(cell_arr)
             
             tempCount += 1
             if tempCount > margin:
@@ -45,20 +42,14 @@ def main():
     print("mapping complete. creating image....")
     if gif:
         #process the cell_arr to a byte format for the resulting image
-        bytes_arr = bytearray()
-        convertToBytes(bytes_arr, cell_arr)
-        #upScale(bytes_arr, scale)
-        frames.append(Image.frombytes("RGB", ((w*3), (h*3)), bytes(bytes_arr)))
+        appendToGif(cell_arr)
 
     for row in cell_arr:
         for cell in row:
             cell.val = 0
 
     if gif:
-        bytes_arr = bytearray()
-        convertToBytes(bytes_arr, cell_arr)
-        #upScale(bytes_arr, scale)
-        frames.append(Image.frombytes("RGB", ((w*3), (h*3)), bytes(bytes_arr)))
+        appendToGif(cell_arr)
 
     #generate exits
     createExit(cell_arr, "up")
