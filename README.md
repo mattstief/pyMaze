@@ -12,11 +12,10 @@ stuff to tweak is at the top of the helper file
 
 - The end of the gif shows a completed maze with the exits marked with light blue. 
 
-  ![60x60_Maze0](https://user-images.githubusercontent.com/79825665/166325381-e8b92078-91a3-4949-8a57-24117b090a43.gif)
-![30x30_Maze0](https://user-images.githubusercontent.com/79825665/166323518-bdaac0f4-b4b4-4902-b383-762ec9e5da20.gif)
-![30x30_Maze1](https://user-images.githubusercontent.com/79825665/166323579-52812f5b-5928-4d3c-9e5e-72b5a6e46f16.gif)
-![30x30_Maze2](https://user-images.githubusercontent.com/79825665/166323587-25fcb7ac-bbf4-44b6-a79e-371401f48df9.gif)
-![20x20_Maze0](https://user-images.githubusercontent.com/79825665/166340000-4bb7606c-2247-4c56-b8cd-a53cf8c1dd45.gif)
+- Blocky and jagged hall style choices
+
+  ![60x60_Maze0](https://user-images.githubusercontent.com/79825665/166346534-e0e2d6a6-0d3d-4696-9be0-739b49488a57.gif) ![60x60_Maze0](https://user-images.githubusercontent.com/79825665/166325381-e8b92078-91a3-4949-8a57-24117b090a43.gif) ![45x45_Maze0](https://user-images.githubusercontent.com/79825665/166355145-b5e793ce-562f-4a93-a4ed-f3300891e153.gif) ![45x45_Maze1](https://user-images.githubusercontent.com/79825665/166369209-a6ca31ab-6e17-49aa-9c43-559084433fbd.gif) ![30x30_Maze0](https://user-images.githubusercontent.com/79825665/166345792-b585adf8-a09d-430f-89a4-0fce7da597d8.gif) ![30x30_Maze0](https://user-images.githubusercontent.com/79825665/166323518-bdaac0f4-b4b4-4902-b383-762ec9e5da20.gif) ![20x20_Maze0](https://user-images.githubusercontent.com/79825665/166345747-45d08846-6ed4-4dc8-bf99-bc2ba4c78545.gif) ![20x20_Maze0](https://user-images.githubusercontent.com/79825665/166340000-4bb7606c-2247-4c56-b8cd-a53cf8c1dd45.gif)
+
 
 
 ------------
