@@ -10,13 +10,22 @@ w, h = 30, 30
 dir_path = "gifs/"
 gif = True
 
-fade_traceback = 99
-fade_head = -9
-fade_exit = -11000
+baseColor = [0, 255, 0]
+tunnelColor = [255,0,0]
+traceColor = [0, 0, 255]
+entranceColor = [255, 255, 255]
+headColor = [255, 51, 153]
+
+backtrack_fade_mult = 30
+head_fade_mult = 3
+
+exit_val = -11000
 frames=[]   #only used if gif is True
 scale = 4
 name_prefix = "maze"
 
+head_fade_mult *= -3
+backtrack_fade_mult *= 3
 #returns next available file name
 def getFileName(name=name_prefix):
     index = 0
@@ -86,7 +95,7 @@ def visitNeighbor(visitStack, dirStack, i, j, arr):
             arr[i][j].up = False
             break
     visitStack.append((i, j))
-    arr[i][j].val = fade_head
+    arr[i][j].val = head_fade_mult
     arr[i][j].visited = True
     #print(f"(i,j): {i},{j}")
     return i, j
@@ -111,11 +120,11 @@ def backTrack(visitStack, i, j, arr):
     while(isDeadEnd(i, j, arr)):
         if len(visitStack) <= 0:
             return -1, -1
-        arr[i][j].val = fade_traceback
+        arr[i][j].val = backtrack_fade_mult
         if gif:
             appendToGif(arr)
         i, j = visitStack.pop()
-    arr[i][j].val = fade_head
+    arr[i][j].val = head_fade_mult
     return i, j
 
 
@@ -129,84 +138,70 @@ def wallsUP(cell):
     if not cell.left:
         return False 
 
-def getBaseColor(cell):
+def getColor(cell, wall):
+    if wall:
+        return baseColor
+    else:
+        return calcFadeColor(cell)
+
+def calcFadeColor(cell):
     if not gif or cell.val == 0:
-        base = [255, 255, 255]
+        base = tunnelColor
     if cell.val > 0:
-        colRange = int(cell.val/3) * 3
-        colVal = 255-int(colRange*(255/(fade_traceback)))
-        base = [255, colVal, colVal]
+        #colFloor = cell.val - cell.val%9 
+        base = []
+        for i in range(3):
+            #diff = abs(tunnelColor[i] - traceColor[i])
+            mult = cell.val/backtrack_fade_mult
+            col_diff = traceColor[i] - tunnelColor[i]
+            #offset = int(cell.val*(diff/(backtrack_fade_mult)))
+            #diff = tunnelColor[i] - traceColor[i]
+            col_int8 = tunnelColor[i] + mult*col_diff
+            #col_int8 = diff-int(colFloor*(diff/(backtrack_fade_mult)))
+            base.append(int(col_int8))
         cell.val -= 1
     if cell.val < 0: #Head
         if cell.val < -10000:
-            base = [51, 255, 255]
+            base = entranceColor
             cell.val -= 1
         else:
-            base = [255, 51, 153]  
+            base = headColor 
             cell.val += 1  
 
     return base
 
+def appendPixel(color, bytes_arr):
+    for val in color:
+        bytes_arr.append(val)
+
+
 def convertToBytes(bytes_arr, cell_arr, bar=None):
-    base = [255, 255, 255]; black = [0, 0, 0]
+    base = [255, 255, 255]; black = baseColor
     for row in cell_arr:
         if bar:
             bar.update()
         for cell in row:
-            #top wall
-            col = black
-            for val in col:
-                bytes_arr.append(val)
-
-            col = getBaseColor(cell)
-            if cell.up:
-                col = black
-            for val in col:
-                bytes_arr.append(val)
-
-            col = black
-            for val in col:
-                bytes_arr.append(val)
-
+            #top row
+            appendPixel(baseColor, bytes_arr)
+            col = getColor(cell, cell.up)
+            appendPixel(col, bytes_arr)
+            appendPixel(baseColor, bytes_arr)
         for cell in row:
-            base = getBaseColor(cell)
-            #left wall
-            col = base
-            if cell.left:
-                col = black
-            for val in col:
-                bytes_arr.append(val)
-
-            #center pixel
-            col = base
-            if wallsUP(cell):
-                col = black
-            for val in col:
-                bytes_arr.append(val)
-
-            #right wall
-            col = base
-            if cell.right:
-                col = black
-            for val in col:
-                bytes_arr.append(val)
-
+            #middle row
+            col = getColor(cell, cell.left)
+            appendPixel(col, bytes_arr)
+            col = getColor(cell, wallsUP(cell))
+            appendPixel(col, bytes_arr)
+            col = getColor(cell, cell.right)
+            appendPixel(col, bytes_arr)
         for cell in row:
-            #bottom wall 
-            col = black
-            for val in col:
-                bytes_arr.append(val)
+            #bottom row 
+            appendPixel(baseColor, bytes_arr)
+            col = getColor(cell, cell.down)
+            appendPixel(col, bytes_arr)
+            appendPixel(baseColor, bytes_arr)
 
-            col = getBaseColor(cell)
-            if cell.down:
-                col = black
-            for val in col:
-                bytes_arr.append(val)
-
-            col = black
-            for val in col:
-                bytes_arr.append(val)
-
+#TODO
 def upScale(bytes_arr, scale):
     bytes_arr = bytearray(bytes_arr)
     i = 0   
@@ -261,32 +256,32 @@ def createExit(arr, side):
         arr[i][j].left = False
         arr[i][j].right = False
         arr[i][j+1].left = False
-        arr[i][j].val = fade_exit
-        arr[i][j+1].val = fade_exit
+        arr[i][j].val = exit_val
+        arr[i][j+1].val = exit_val
     if side == "right":
         i = random.randint(1, h-2)
         j = w-1
         arr[i][j].left = False
         arr[i][j].right = False
         arr[i][j-1].right = False
-        arr[i][j].val = fade_exit
-        arr[i][j-1].val = fade_exit
+        arr[i][j].val = exit_val
+        arr[i][j-1].val = exit_val
     if side == "up":
         i = 0
         j = random.randint(1, w-2)
         arr[i][j].up = False
         arr[i][j].down = False
         arr[i+1][j].up = False
-        arr[i][j].val = fade_exit
-        arr[i+1][j].val = fade_exit
+        arr[i][j].val = exit_val
+        arr[i+1][j].val = exit_val
     if side == "down":
         i = h-1
         j = random.randint(1, w-2)
         arr[i][j].up = False
         arr[i][j].down = False
         arr[i-1][j].down = False
-        arr[i][j].val = fade_exit
-        arr[i-1][j].val = fade_exit
+        arr[i][j].val = exit_val
+        arr[i-1][j].val = exit_val
 
 def trackProgress(count, percent):
     percent = round((count/(w*h))*100, 0)
