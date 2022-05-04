@@ -151,13 +151,9 @@ def calcFadeColor(cell):
         #colFloor = cell.val - cell.val%9 
         base = []
         for i in range(3):
-            #diff = abs(tunnelColor[i] - traceColor[i])
             mult = cell.val/backtrack_fade_mult
             col_diff = traceColor[i] - tunnelColor[i]
-            #offset = int(cell.val*(diff/(backtrack_fade_mult)))
-            #diff = tunnelColor[i] - traceColor[i]
             col_int8 = tunnelColor[i] + mult*col_diff
-            #col_int8 = diff-int(colFloor*(diff/(backtrack_fade_mult)))
             base.append(int(col_int8))
         cell.val -= 1
     if cell.val < 0: #Head
