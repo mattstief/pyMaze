@@ -298,7 +298,7 @@ def createExit(arr, side):
         arr[i][j].val = exit_val
         arr[i-1][j].val = exit_val
 
-#progress bar tracker
+#progress bar tracker 
 def trackProgress(count, percent):
     percent = round((count/(w*h))*100, 0)
     #print(f'{percent}%')

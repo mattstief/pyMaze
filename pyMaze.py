@@ -10,7 +10,7 @@ def main():
     visitStack, dirStack = [], []
 
     printMem()
-    #initialize arr
+    #initialize arr 
     cell_arr = [[Cell() for col in range(w)] for row in range(h)]
 
     i = random.randint(1, h-2)
