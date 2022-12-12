@@ -1,4 +1,7 @@
 # pyMaze
+
+Dec 2022: I realized that I have encoded the GIF data incorrectly, with 3 Bytes per pixel rather than one. No idea how it works still. 
+
 maze generator with optional gif creation
 
 stuff to tweak is at the top of the helper file
