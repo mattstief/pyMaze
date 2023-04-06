@@ -125,7 +125,7 @@ def goodDir(dirStack):
             return False
     return True
 
-#indicate current cell is being backtraced - for coloring, then backtrack one cell and return its coordinates
+#indicate current cell is being backtraced - for coloring. Then backtrack one cell and return the coordinates of that cell
 def backTrack(visitStack, i, j, arr):
     while(isDeadEnd(i, j, arr)):
         if len(visitStack) <= 0:
@@ -137,7 +137,7 @@ def backTrack(visitStack, i, j, arr):
     arr[i][j].val = head_fade_mult
     return i, j
 
-#checks if a cell has all of it's walls up - used for appearance. 
+#checks if a cell has all walls closed
 def wallsUP(cell):
     if not cell.up:
         return False
@@ -148,14 +148,14 @@ def wallsUP(cell):
     if not cell.left:
         return False 
 
-#returns the color of the cell
+#returns corresponding cell color
 def getColor(cell, wall):
     if wall:
         return baseColor
     else:
         return calcFadeColor(cell)
 
-#determines the color of the cell based on the cell's value and the customized parameters
+#determines the color of the cell based on the cell's value and the customized color parameters
 def calcFadeColor(cell):
     if not gif or cell.val == 0:
         base = tunnelColor
